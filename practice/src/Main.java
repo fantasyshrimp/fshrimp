@@ -21,11 +21,9 @@ class Problem1{
     public  static  int solution(List<Integer> pobi, List<Integer> crong){
         int answer = Integer.MAX_VALUE;
 
+        User one = new User("pobi",new Pages(pobi));
 
-        if(!checkNum(pobi)){
-            return -1;
-        }
-        if(!checkNum(crong)){
+        if(!checkNum(pobi) && !checkNum(crong)){
             return -1;
         }
 
@@ -107,36 +105,95 @@ class Problem1{
 }
 
 class Page{
-    private int pageNumber;
+    private int page;
 
-    public Page(int pageNumber){
-        this.pageNumber = pageNumber;
+    Page(int page){
+        this.page = page;
+    }
+
+    public int[] getEachDigitOfPage(){
+        int n = this.page;
+        int digit = (int)Math.log10(n) + 1;
+        int[] arrayEachDigits = new int[digit];
+
+        for (int i = 0; i < digit; i++){
+            arrayEachDigits[i] = (n % 10);
+            n /= 10;
+        }
+        return arrayEachDigits;
+    }
+
+
+}
+class Pages{ //이름을 펼쳐진책?
+    Page leftPage;
+    Page rightPage;
+
+    public Pages(List<Integer> pages){
+        this.leftPage = new Page(pages.get(0));
+        this.rightPage = new Page(pages.get(1));
     }
 }
 
-class Pages{
-    private List<Page> pages;
 
-    public Pages(List<Page> pages){
-        this.pages = pages;
+class PageGame{
+    User userOne;
+    User userTwo;
+
+    PageGame(User one, User two){
+        this.userOne = one;
+        this.userTwo = two;
     }
-}
 
-class Game{
+    public int calculateScore(Pages pages){
+        Page leftPage = pages.leftPage;
+        Page rightPage = pages.rightPage;
 
-    public int calculateScore(){
         return 1;
     }
-
-    private int[] divideDigit(int num){
-
-        return null;
-    }
-
 }
 
 class User{
     String userName;
     Pages pages;
+
+    User(String userName, Pages pages){
+        this.userName = userName;
+        this.pages = pages;
+    }
+
+}
+
+class ScoreCalculator{
+
+    public int getScore(Pages pages){
+        int Score = 0;
+
+        addEachDigit(pages.leftPage);
+        addEachDigit(pages.rightPage);
+        multiplyEachDigit(pages.leftPage);
+        multiplyEachDigit(pages.rightPage);
+
+
+
+        return Score;
+    }
+    private int addEachDigit(Page page){
+
+        int n = 0;
+        for (int a : page.getEachDigitOfPage()){
+            n += a;
+        }
+        return n;
+    }
+
+    private int multiplyEachDigit(Page page){
+
+        int n = 1;
+        for (int a : page.getEachDigitOfPage()){
+            n *= a;
+        }
+        return n;
+    }
 
 }
