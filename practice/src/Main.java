@@ -136,5 +136,7 @@ class Game{
 }
 
 class User{
+    String userName;
+    Pages pages;
 
 }
