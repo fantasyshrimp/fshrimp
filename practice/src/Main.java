@@ -124,7 +124,6 @@ class Pages{
 
 class Game{
 
-
     public int calculateScore(){
         return 1;
     }
@@ -133,5 +132,9 @@ class Game{
 
         return null;
     }
+
+}
+
+class User{
 
 }
